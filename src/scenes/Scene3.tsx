@@ -8,6 +8,7 @@ import {
 } from "remotion";
 
 import { SCENE_DURATIONS_S } from "../lib/sceneDurations";
+import { Div, Span } from "../lib/ui/containers";
 
 const SCENE_DURATION_S = SCENE_DURATIONS_S.scene3;
 
@@ -18,12 +19,6 @@ const Background: React.FC = () => (
 export const Scene3: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-
-  const fadeIn = (startS: number) =>
-    interpolate(frame, [fps * startS, fps * (startS + 0.6)], [0, 1], {
-      extrapolateRight: "clamp",
-      extrapolateLeft: "clamp",
-    });
 
   const scale = interpolate(
     frame,
@@ -57,7 +52,8 @@ export const Scene3: React.FC = () => {
           paddingRight: 80,
         }}
       >
-        <div
+        <Div
+          frame={frame}
           style={{
             display: "flex",
             flexDirection: "row",
@@ -65,13 +61,19 @@ export const Scene3: React.FC = () => {
             width: "100%",
           }}
         >
-          <div
+          <Div
+            frame={frame}
+            opacity={{
+              input: [fps * 0, fps * 0.6],
+              output: [0, 1],
+              extrapolateRight: "clamp",
+              extrapolateLeft: "clamp",
+            }}
             style={{
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
               gap: 16,
-              opacity: fadeIn(0),
             }}
           >
             <Img
@@ -82,25 +84,32 @@ export const Scene3: React.FC = () => {
                 objectFit: "contain",
               }}
             />
-            <span
+            <Span
+              frame={frame}
               style={{
-                fontSize: 42,
+                fontSize: 50,
                 fontFamily: "sans-serif",
                 fontWeight: 600,
                 color: "#333",
               }}
             >
               Ordenar números
-            </span>
-          </div>
+            </Span>
+          </Div>
 
-          <div
+          <Div
+            frame={frame}
+            opacity={{
+              input: [fps * 0.8, fps * 1.4],
+              output: [0, 1],
+              extrapolateRight: "clamp",
+              extrapolateLeft: "clamp",
+            }}
             style={{
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
               gap: 16,
-              opacity: fadeIn(0.8),
             }}
           >
             <Img
@@ -111,53 +120,68 @@ export const Scene3: React.FC = () => {
                 objectFit: "contain",
               }}
             />
-            <span
+            <Span
+              frame={frame}
               style={{
-                fontSize: 42,
+                fontSize: 50,
                 fontFamily: "sans-serif",
                 fontWeight: 600,
                 color: "#333",
               }}
             >
               Buscar rutas
-            </span>
-          </div>
-        </div>
+            </Span>
+          </Div>
+        </Div>
 
-        <div
+        <Div
+          frame={frame}
+          opacity={{
+            input: [fps * 1.6, fps * 2.2],
+            output: [0, 1],
+            extrapolateRight: "clamp",
+            extrapolateLeft: "clamp",
+          }}
           style={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             gap: 16,
-            opacity: fadeIn(1.6),
           }}
         >
           <Img
             src={staticFile("scene3/find.svg")}
             style={{ width: iconSize, height: iconSize, objectFit: "contain" }}
           />
-          <span
+          <Span
+            frame={frame}
             style={{
-              fontSize: 42,
+              fontSize: 50,
               fontFamily: "sans-serif",
               fontWeight: 600,
               color: "#333",
             }}
           >
             Encontrar el máximo
-          </span>
-        </div>
+          </Span>
+        </Div>
 
-        <div
+        <Div
+          frame={frame}
+          opacity={{
+            input: [fps * 2.4, fps * 3.0],
+            output: [0, 1],
+            extrapolateRight: "clamp",
+            extrapolateLeft: "clamp",
+          }}
           style={{
             position: "absolute",
             bottom: 80,
             right: 80,
-            opacity: fadeIn(2.4),
           }}
         >
-          <span
+          <Span
+            frame={frame}
             style={{
               fontSize: 80,
               fontFamily: "sans-serif",
@@ -173,8 +197,8 @@ export const Scene3: React.FC = () => {
             }}
           >
             P
-          </span>
-        </div>
+          </Span>
+        </Div>
       </AbsoluteFill>
     </AbsoluteFill>
   );

@@ -1,11 +1,12 @@
 import {
   AbsoluteFill,
   Img,
-  interpolate,
   useCurrentFrame,
   useVideoConfig,
   staticFile,
 } from "remotion";
+
+import { Div, Span } from "../lib/ui/containers";
 
 const Background: React.FC = () => (
   <AbsoluteFill style={{ backgroundColor: "white" }} />
@@ -14,18 +15,6 @@ const Background: React.FC = () => (
 export const Scene5: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-
-  const fadeIn = (startS: number, endS = startS + 0.6) =>
-    interpolate(frame, [fps * startS, fps * endS], [0, 1], {
-      extrapolateRight: "clamp",
-      extrapolateLeft: "clamp",
-    });
-
-  const slideUp = (startS: number) =>
-    interpolate(frame, [fps * startS, fps * (startS + 0.6)], [60, 0], {
-      extrapolateRight: "clamp",
-      extrapolateLeft: "clamp",
-    });
 
   const iconSize = 280;
 
@@ -43,12 +32,18 @@ export const Scene5: React.FC = () => {
           paddingRight: 80,
         }}
       >
-        <div
-          style={{
-            opacity: fadeIn(0),
+        <Div
+          frame={frame}
+          opacity={{
+            input: [fps * 0, fps * 0.6],
+            output: [0, 1],
+            extrapolateRight: "clamp",
+            extrapolateLeft: "clamp",
           }}
+          style={{}}
         >
-          <span
+          <Span
+            frame={frame}
             style={{
               fontSize: 80,
               fontFamily: "sans-serif",
@@ -64,10 +59,11 @@ export const Scene5: React.FC = () => {
             }}
           >
             NP
-          </span>
-        </div>
+          </Span>
+        </Div>
 
-        <div
+        <Div
+          frame={frame}
           style={{
             display: "flex",
             flexDirection: "row",
@@ -75,14 +71,25 @@ export const Scene5: React.FC = () => {
             width: "100%",
           }}
         >
-          <div
+          <Div
+            frame={frame}
+            opacity={{
+              input: [fps * 0.5, fps * 1.1],
+              output: [0, 1],
+              extrapolateRight: "clamp",
+              extrapolateLeft: "clamp",
+            }}
+            translateY={{
+              input: [fps * 0.5, fps * 1.1],
+              output: [60, 0],
+              extrapolateRight: "clamp",
+              extrapolateLeft: "clamp",
+            }}
             style={{
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
               gap: 20,
-              opacity: fadeIn(0.5),
-              transform: `translateY(${slideUp(0.5)}px)`,
             }}
           >
             <Img
@@ -93,7 +100,8 @@ export const Scene5: React.FC = () => {
                 objectFit: "contain",
               }}
             />
-            <span
+            <Span
+              frame={frame}
               style={{
                 fontSize: 38,
                 fontFamily: "sans-serif",
@@ -102,17 +110,28 @@ export const Scene5: React.FC = () => {
               }}
             >
               Caja fuerte
-            </span>
-          </div>
+            </Span>
+          </Div>
 
-          <div
+          <Div
+            frame={frame}
+            opacity={{
+              input: [fps * 3, fps * 3.6],
+              output: [0, 1],
+              extrapolateRight: "clamp",
+              extrapolateLeft: "clamp",
+            }}
+            translateY={{
+              input: [fps * 3, fps * 3.6],
+              output: [60, 0],
+              extrapolateRight: "clamp",
+              extrapolateLeft: "clamp",
+            }}
             style={{
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
               gap: 20,
-              opacity: fadeIn(3),
-              transform: `translateY(${slideUp(3)}px)`,
             }}
           >
             <Img
@@ -123,7 +142,8 @@ export const Scene5: React.FC = () => {
                 objectFit: "contain",
               }}
             />
-            <span
+            <Span
+              frame={frame}
               style={{
                 fontSize: 38,
                 fontFamily: "sans-serif",
@@ -132,17 +152,28 @@ export const Scene5: React.FC = () => {
               }}
             >
               Combinación
-            </span>
-          </div>
+            </Span>
+          </Div>
 
-          <div
+          <Div
+            frame={frame}
+            opacity={{
+              input: [fps * 6, fps * 6.6],
+              output: [0, 1],
+              extrapolateRight: "clamp",
+              extrapolateLeft: "clamp",
+            }}
+            translateY={{
+              input: [fps * 6, fps * 6.6],
+              output: [60, 0],
+              extrapolateRight: "clamp",
+              extrapolateLeft: "clamp",
+            }}
             style={{
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
               gap: 20,
-              opacity: fadeIn(6),
-              transform: `translateY(${slideUp(6)}px)`,
             }}
           >
             <Img
@@ -153,7 +184,8 @@ export const Scene5: React.FC = () => {
                 objectFit: "contain",
               }}
             />
-            <span
+            <Span
+              frame={frame}
               style={{
                 fontSize: 38,
                 fontFamily: "sans-serif",
@@ -162,17 +194,24 @@ export const Scene5: React.FC = () => {
               }}
             >
               Verificar
-            </span>
-          </div>
-        </div>
+            </Span>
+          </Div>
+        </Div>
 
-        <div
+        <Div
+          frame={frame}
+          opacity={{
+            input: [fps * 7, fps * 7.6],
+            output: [0, 1],
+            extrapolateRight: "clamp",
+            extrapolateLeft: "clamp",
+          }}
           style={{
-            opacity: fadeIn(7),
             textAlign: "center",
           }}
         >
-          <span
+          <Span
+            frame={frame}
             style={{
               fontSize: 44,
               fontFamily: "sans-serif",
@@ -182,8 +221,8 @@ export const Scene5: React.FC = () => {
             }}
           >
             Difícil de encontrar, fácil de verificar
-          </span>
-        </div>
+          </Span>
+        </Div>
       </AbsoluteFill>
     </AbsoluteFill>
   );

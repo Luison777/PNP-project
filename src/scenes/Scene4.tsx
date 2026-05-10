@@ -8,7 +8,9 @@ import {
   staticFile,
 } from "remotion";
 
-const CUT1_S = 3;
+import { Div, Span } from "../lib/ui/containers";
+
+const CUT1_S = 1;
 import { SCENE_DURATIONS_S } from "../lib/sceneDurations";
 
 const SCENE_DURATION_S = SCENE_DURATIONS_S.scene4;
@@ -18,7 +20,7 @@ const Background: React.FC = () => (
 );
 
 const Cuadro6: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
-  const scale = interpolate(frame, [0, fps * CUT1_S], [1, 4], {
+  const scale = interpolate(frame, [0, fps * CUT1_S], [1, 15], {
     extrapolateRight: "clamp",
     extrapolateLeft: "clamp",
   });
@@ -38,10 +40,11 @@ const Cuadro6: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
         justifyContent: "center",
         opacity,
         transform: `scale(${scale})`,
-        transformOrigin: "62% 50%",
+        transformOrigin: "65% 50%",
       }}
     >
-      <div
+      <Div
+        frame={frame}
         style={{
           display: "flex",
           flexDirection: "row",
@@ -49,7 +52,8 @@ const Cuadro6: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
           gap: 20,
         }}
       >
-        <span
+        <Span
+          frame={frame}
           style={{
             fontSize: 180,
             fontFamily: "sans-serif",
@@ -58,8 +62,9 @@ const Cuadro6: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
           }}
         >
           P
-        </span>
-        <span
+        </Span>
+        <Span
+          frame={frame}
           style={{
             fontSize: 100,
             fontFamily: "sans-serif",
@@ -68,8 +73,9 @@ const Cuadro6: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
           }}
         >
           vs
-        </span>
-        <span
+        </Span>
+        <Span
+          frame={frame}
           style={{
             fontSize: 180,
             fontFamily: "sans-serif",
@@ -78,24 +84,14 @@ const Cuadro6: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
           }}
         >
           NP
-        </span>
-      </div>
+        </Span>
+      </Div>
     </AbsoluteFill>
   );
 };
 
 const Cuadro7: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
   const sceneOpacity = interpolate(frame, [0, fps * 0.5], [0, 1], {
-    extrapolateRight: "clamp",
-    extrapolateLeft: "clamp",
-  });
-
-  const bubbleOpacity = interpolate(frame, [fps * 1, fps * 1.8], [0, 1], {
-    extrapolateRight: "clamp",
-    extrapolateLeft: "clamp",
-  });
-
-  const bulbOpacity = interpolate(frame, [fps * 5, fps * 6], [0, 1], {
     extrapolateRight: "clamp",
     extrapolateLeft: "clamp",
   });
@@ -108,44 +104,49 @@ const Cuadro7: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
   return (
     <AbsoluteFill
       style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
         opacity: sceneOpacity,
-        paddingBottom: 100,
       }}
+      className="relative flex justify-center px-30"
     >
-      <div
-        style={{
-          position: "relative",
-          width: 500,
-          height: 380,
-          opacity: bubbleOpacity,
+      <Div
+        frame={frame}
+        opacity={{
+          input: [fps * 1, fps * 1.8],
+          output: [0, 1],
+          extrapolateRight: "clamp",
+          extrapolateLeft: "clamp",
         }}
+        style={{
+          width: 500,
+          height: 500,
+        }}
+        className="absolute right-[20%] top-[15%]"
       >
         <Img
           src={staticFile("scene4/thought-bubble.svg")}
           style={{ width: "100%", height: "100%", objectFit: "contain" }}
         />
-        <div
-          style={{
-            position: "absolute",
-            top: "15%",
-            left: "50%",
-            transform: `translate(-50%, 0) scale(${bulbScale})`,
-            opacity: bulbOpacity,
-            width: 160,
-            height: 160,
-          }}
-        >
-          <Img
-            src={staticFile("scene4/bulb.svg")}
-            style={{ width: "100%", height: "100%", objectFit: "contain" }}
-          />
-        </div>
-      </div>
-
+      </Div>
+      <Div
+        frame={frame}
+        opacity={{
+          input: [fps * 5, fps * 6],
+          output: [0, 1],
+          extrapolateRight: "clamp",
+          extrapolateLeft: "clamp",
+        }}
+        style={{
+          transform: `translate(-50%, 0) scale(${bulbScale})`,
+          width: 160,
+          height: 160,
+        }}
+        className="absolute top-[20%] right-[32%]"
+      >
+        <Img
+          src={staticFile("scene4/bulb.svg")}
+          style={{ width: "100%", height: "100%", objectFit: "contain" }}
+        />
+      </Div>
       <Img
         src={staticFile("scene4/think.svg")}
         style={{

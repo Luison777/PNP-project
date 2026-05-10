@@ -7,9 +7,10 @@ import {
   useVideoConfig,
   staticFile,
 } from "remotion";
-
-const CUT1_S = 3;
+import { Div, Span } from "../lib/ui/containers";
 import { SCENE_DURATIONS_S } from "../lib/sceneDurations";
+
+const CUT1_S = 1;
 
 const SCENE_DURATION_S = SCENE_DURATIONS_S.scene2;
 
@@ -18,7 +19,7 @@ const Background: React.FC = () => (
 );
 
 const Cuadro3: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
-  const scale = interpolate(frame, [0, fps * CUT1_S], [1, 4], {
+  const scale = interpolate(frame, [0, fps * CUT1_S], [1, 15], {
     extrapolateRight: "clamp",
     extrapolateLeft: "clamp",
   });
@@ -38,48 +39,29 @@ const Cuadro3: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
         justifyContent: "center",
         opacity,
         transform: `scale(${scale})`,
-        transformOrigin: "38% 50%",
+        transformOrigin: "30% 50%",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          gap: 20,
-        }}
-      >
-        <span
-          style={{
-            fontSize: 180,
-            fontFamily: "sans-serif",
-            fontWeight: 900,
-            color: "#1a1a2e",
-          }}
+      <Div frame={frame} className="flex flex-row items-center gap-5">
+        <Span
+          frame={frame}
+          className="font-sans font-black text-[#1a1a2e] text-[180px]"
         >
           P
-        </span>
-        <span
-          style={{
-            fontSize: 100,
-            fontFamily: "sans-serif",
-            fontWeight: 400,
-            color: "#555",
-          }}
+        </Span>
+        <Span
+          frame={frame}
+          className="font-sans font-normal text-[#555] text-[100px]"
         >
           vs
-        </span>
-        <span
-          style={{
-            fontSize: 180,
-            fontFamily: "sans-serif",
-            fontWeight: 900,
-            color: "#e94560",
-          }}
+        </Span>
+        <Span
+          frame={frame}
+          className="font-sans font-black text-[#e94560] text-[180px]"
         >
           NP
-        </span>
-      </div>
+        </Span>
+      </Div>
     </AbsoluteFill>
   );
 };
@@ -101,73 +83,71 @@ const Cuadro4: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
 
   const gearRotation = (frame / fps) * 90;
 
-  const itemFadeIn = (startS: number) =>
-    interpolate(frame, [fps * startS, fps * (startS + 0.5)], [0, 1], {
-      extrapolateRight: "clamp",
-      extrapolateLeft: "clamp",
-    });
-
   return (
     <AbsoluteFill
       style={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-around",
-        paddingLeft: 60,
-        paddingRight: 60,
         opacity: Math.min(opacity, fadeOut),
       }}
+      className="flex flex-col items-center px-20 pt-50"
     >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 16,
-          opacity: itemFadeIn(0),
-        }}
+      <Div
+        frame={frame}
+        className="flex flex-col items-center gap-4 relative"
+        opacity={{ input: [0, fps * 0.5], output: [0, 1] }}
       >
         <Img
           src={staticFile("scene1/computer.svg")}
-          style={{ width: 240, height: 240, objectFit: "contain" }}
+          style={{ width: 450, height: 450, objectFit: "contain" }}
         />
-      </div>
+        <Div
+          frame={frame}
+          className="flex flex-col items-center gap-4 absolute -left-[20%] top-[45%]"
+          opacity={{ input: [fps * 0.5, fps * 1], output: [0, 1] }}
+        >
+          <Img
+            src={staticFile("scene2/gear.svg")}
+            style={{
+              width: 240,
+              height: 240,
+              objectFit: "contain",
+              transform: `rotate(${gearRotation}deg)`,
+            }}
+          />
+        </Div>
+        <Div
+          frame={frame}
+          className="flex flex-col items-center gap-4 absolute -top-[10%] -right-[15%]"
+          opacity={{ input: [fps * 1, fps * 1.5], output: [0, 1] }}
+        >
+          <Img
+            src={staticFile("scene2/clock.svg")}
+            style={{ width: 200, height: 200, objectFit: "contain" }}
+            className="rotate-30"
+          />
+        </Div>
+      </Div>
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 16,
-          opacity: itemFadeIn(0.5),
-        }}
+      <Div
+        frame={frame}
+        className="flex flex-col items-center gap-4 pt-20"
+        opacity={{ input: [fps * 2, fps * 2.5], output: [0, 1] }}
       >
         <Img
-          src={staticFile("scene2/gear.svg")}
-          style={{
-            width: 240,
-            height: 240,
-            objectFit: "contain",
-            transform: `rotate(${gearRotation}deg)`,
-          }}
+          src={staticFile("scene2/arrow-down.svg")}
+          style={{ width: 300, height: 300, objectFit: "contain" }}
         />
-      </div>
+      </Div>
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 16,
-          opacity: itemFadeIn(1),
-        }}
+      <Div
+        frame={frame}
+        className="flex flex-col items-center gap-4 pt-30"
+        opacity={{ input: [fps * 3, fps * 3.5], output: [0, 1] }}
       >
         <Img
-          src={staticFile("scene2/clock.svg")}
-          style={{ width: 240, height: 240, objectFit: "contain" }}
+          src={staticFile("scene5/check.svg")}
+          style={{ width: 400, height: 400, objectFit: "contain" }}
         />
-      </div>
+      </Div>
     </AbsoluteFill>
   );
 };
