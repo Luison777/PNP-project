@@ -1,9 +1,3 @@
-/**
- * Scene 2 - Introducción visual
- * Cuadro 3 (0–3s):  Título P vs NP → zoom en "P"
- * Cuadro 4 (3–11s): computer.svg + gear.svg (giro) + clock.svg → fade out
- * Total: 11s = 330 frames @ 30fps
- */
 import {
   AbsoluteFill,
   Img,
@@ -15,13 +9,14 @@ import {
 } from "remotion";
 
 const CUT1_S = 3;
-const SCENE_DURATION_S = 11;
+import { SCENE_DURATIONS_S } from "../lib/sceneDurations";
+
+const SCENE_DURATION_S = SCENE_DURATIONS_S.scene2;
 
 const Background: React.FC = () => (
   <AbsoluteFill style={{ backgroundColor: "white" }} />
 );
 
-// Cuadro 3: zoom in to "P"
 const Cuadro3: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
   const scale = interpolate(frame, [0, fps * CUT1_S], [1, 4], {
     extrapolateRight: "clamp",
@@ -43,7 +38,7 @@ const Cuadro3: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
         justifyContent: "center",
         opacity,
         transform: `scale(${scale})`,
-        transformOrigin: "38% 50%", // zoom toward the "P"
+        transformOrigin: "38% 50%",
       }}
     >
       <div
@@ -89,17 +84,14 @@ const Cuadro3: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
   );
 };
 
-// Cuadro 4: computer + gear (rotating) + clock
 const Cuadro4: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
-  const cuadro4Duration = SCENE_DURATION_S - CUT1_S; // 8s
+  const cuadro4Duration = SCENE_DURATION_S - CUT1_S;
 
-  // Fade in
   const opacity = interpolate(frame, [0, fps * 0.5], [0, 1], {
     extrapolateRight: "clamp",
     extrapolateLeft: "clamp",
   });
 
-  // Fade out at end
   const fadeOut = interpolate(
     frame,
     [fps * (cuadro4Duration - 0.5), fps * cuadro4Duration],
@@ -107,8 +99,7 @@ const Cuadro4: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
     { extrapolateRight: "clamp", extrapolateLeft: "clamp" },
   );
 
-  // Gear rotation: 360 deg / 4s loop
-  const gearRotation = (frame / fps) * 90; // 90 deg/s
+  const gearRotation = (frame / fps) * 90;
 
   const itemFadeIn = (startS: number) =>
     interpolate(frame, [fps * startS, fps * (startS + 0.5)], [0, 1], {
@@ -128,7 +119,6 @@ const Cuadro4: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
         opacity: Math.min(opacity, fadeOut),
       }}
     >
-      {/* Computer */}
       <div
         style={{
           display: "flex",
@@ -144,7 +134,6 @@ const Cuadro4: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
         />
       </div>
 
-      {/* Gear (rotating) */}
       <div
         style={{
           display: "flex",
@@ -165,7 +154,6 @@ const Cuadro4: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
         />
       </div>
 
-      {/* Clock */}
       <div
         style={{
           display: "flex",
@@ -191,11 +179,9 @@ export const Scene2: React.FC = () => {
   return (
     <AbsoluteFill>
       <Background />
-      {/* Cuadro 3: 0–3s */}
       <Sequence durationInFrames={fps * CUT1_S}>
         <Cuadro3 frame={frame} fps={fps} />
       </Sequence>
-      {/* Cuadro 4: 3–11s */}
       <Sequence
         from={fps * CUT1_S}
         durationInFrames={fps * (SCENE_DURATION_S - CUT1_S)}

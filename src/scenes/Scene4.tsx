@@ -1,9 +1,3 @@
-/**
- * Scene 4 - Cambio de ritmo
- * Cuadro 6 (0–3s):  P vs NP → zoom in en "NP"
- * Cuadro 7 (3–15s): think.svg + thought-bubble.svg → bulb.svg aparece dentro
- * Total: 15s = 450 frames @ 30fps
- */
 import {
   AbsoluteFill,
   Img,
@@ -15,13 +9,14 @@ import {
 } from "remotion";
 
 const CUT1_S = 3;
-const SCENE_DURATION_S = 15;
+import { SCENE_DURATIONS_S } from "../lib/sceneDurations";
+
+const SCENE_DURATION_S = SCENE_DURATIONS_S.scene4;
 
 const Background: React.FC = () => (
   <AbsoluteFill style={{ backgroundColor: "white" }} />
 );
 
-// Cuadro 6: zoom in hacia "NP"
 const Cuadro6: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
   const scale = interpolate(frame, [0, fps * CUT1_S], [1, 4], {
     extrapolateRight: "clamp",
@@ -43,7 +38,7 @@ const Cuadro6: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
         justifyContent: "center",
         opacity,
         transform: `scale(${scale})`,
-        transformOrigin: "62% 50%", // zoom toward "NP"
+        transformOrigin: "62% 50%",
       }}
     >
       <div
@@ -89,20 +84,17 @@ const Cuadro6: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
   );
 };
 
-// Cuadro 7: think + thought-bubble + bulb
 const Cuadro7: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
   const sceneOpacity = interpolate(frame, [0, fps * 0.5], [0, 1], {
     extrapolateRight: "clamp",
     extrapolateLeft: "clamp",
   });
 
-  // Thought bubble appears after think character
   const bubbleOpacity = interpolate(frame, [fps * 1, fps * 1.8], [0, 1], {
     extrapolateRight: "clamp",
     extrapolateLeft: "clamp",
   });
 
-  // Bulb appears after 5s into cuadro 7
   const bulbOpacity = interpolate(frame, [fps * 5, fps * 6], [0, 1], {
     extrapolateRight: "clamp",
     extrapolateLeft: "clamp",
@@ -124,7 +116,6 @@ const Cuadro7: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
         paddingBottom: 100,
       }}
     >
-      {/* Thought bubble + bulb (positioned above the character) */}
       <div
         style={{
           position: "relative",
@@ -137,7 +128,6 @@ const Cuadro7: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
           src={staticFile("scene4/thought-bubble.svg")}
           style={{ width: "100%", height: "100%", objectFit: "contain" }}
         />
-        {/* Bulb inside bubble */}
         <div
           style={{
             position: "absolute",
@@ -156,7 +146,6 @@ const Cuadro7: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
         </div>
       </div>
 
-      {/* Think character */}
       <Img
         src={staticFile("scene4/think.svg")}
         style={{
@@ -177,11 +166,9 @@ export const Scene4: React.FC = () => {
   return (
     <AbsoluteFill>
       <Background />
-      {/* Cuadro 6: 0–3s */}
       <Sequence durationInFrames={fps * CUT1_S}>
         <Cuadro6 frame={frame} fps={fps} />
       </Sequence>
-      {/* Cuadro 7: 3–15s */}
       <Sequence
         from={fps * CUT1_S}
         durationInFrames={fps * (SCENE_DURATION_S - CUT1_S)}

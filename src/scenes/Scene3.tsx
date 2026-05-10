@@ -1,9 +1,3 @@
-/**
- * Scene 3 - Ejemplos P
- * Cuadro 5 (0–8s): numbers.svg (top-left) + routes.svg (top-right) + find.svg (bottom-center)
- *                  fade in sequentially → zoom out
- * Total: 8s = 240 frames @ 30fps
- */
 import {
   AbsoluteFill,
   Img,
@@ -13,7 +7,9 @@ import {
   staticFile,
 } from "remotion";
 
-const SCENE_DURATION_S = 8;
+import { SCENE_DURATIONS_S } from "../lib/sceneDurations";
+
+const SCENE_DURATION_S = SCENE_DURATIONS_S.scene3;
 
 const Background: React.FC = () => (
   <AbsoluteFill style={{ backgroundColor: "white" }} />
@@ -23,14 +19,12 @@ export const Scene3: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Each image fades in sequentially
   const fadeIn = (startS: number) =>
     interpolate(frame, [fps * startS, fps * (startS + 0.6)], [0, 1], {
       extrapolateRight: "clamp",
       extrapolateLeft: "clamp",
     });
 
-  // Global zoom out at the end (last 1.5s)
   const scale = interpolate(
     frame,
     [fps * (SCENE_DURATION_S - 1.5), fps * SCENE_DURATION_S],
@@ -63,7 +57,6 @@ export const Scene3: React.FC = () => {
           paddingRight: 80,
         }}
       >
-        {/* Top row: numbers + routes */}
         <div
           style={{
             display: "flex",
@@ -72,7 +65,6 @@ export const Scene3: React.FC = () => {
             width: "100%",
           }}
         >
-          {/* numbers.svg – top left */}
           <div
             style={{
               display: "flex",
@@ -102,7 +94,6 @@ export const Scene3: React.FC = () => {
             </span>
           </div>
 
-          {/* routes.svg – top right */}
           <div
             style={{
               display: "flex",
@@ -133,7 +124,6 @@ export const Scene3: React.FC = () => {
           </div>
         </div>
 
-        {/* Bottom center: find.svg */}
         <div
           style={{
             display: "flex",
@@ -159,7 +149,6 @@ export const Scene3: React.FC = () => {
           </span>
         </div>
 
-        {/* Label P */}
         <div
           style={{
             position: "absolute",

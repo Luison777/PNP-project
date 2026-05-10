@@ -1,8 +1,3 @@
-/**
- * Scene 8 - Tablero vacío / explosión de posibilidades (Cuadro 11)
- * Tablero 9x9 que crece → aparece boom.svg
- * Total: 8s = 240 frames @ 30fps
- */
 import {
   AbsoluteFill,
   Img,
@@ -24,25 +19,21 @@ export const Scene8: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Board fades in
   const boardOpacity = interpolate(frame, [0, fps * 0.5], [0, 1], {
     extrapolateRight: "clamp",
     extrapolateLeft: "clamp",
   });
 
-  // Board grows from 0.6 to 1.5 scale over 5s
   const boardScale = interpolate(frame, [0, fps * 5], [0.6, 1.5], {
     extrapolateRight: "clamp",
     extrapolateLeft: "clamp",
   });
 
-  // Board fades out at 5s
   const boardFadeOut = interpolate(frame, [fps * 4.5, fps * 5.5], [1, 0], {
     extrapolateRight: "clamp",
     extrapolateLeft: "clamp",
   });
 
-  // Boom appears at 5.5s
   const boomOpacity = interpolate(frame, [fps * 5.2, fps * 6], [0, 1], {
     extrapolateRight: "clamp",
     extrapolateLeft: "clamp",
@@ -60,7 +51,6 @@ export const Scene8: React.FC = () => {
     <AbsoluteFill>
       <Background />
 
-      {/* Growing board */}
       <AbsoluteFill
         style={{
           display: "flex",
@@ -133,7 +123,6 @@ export const Scene8: React.FC = () => {
         </div>
       </AbsoluteFill>
 
-      {/* Boom! */}
       <AbsoluteFill
         style={{
           display: "flex",

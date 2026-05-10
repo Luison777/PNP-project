@@ -1,6 +1,5 @@
 /**
  * MainVideo - Composición completa con todas las escenas + audio de fondo
- * Total: 103s = 3090 frames @ 30fps
  */
 import { AbsoluteFill, Html5Audio, Series, staticFile } from "remotion";
 import { Scene1 } from "./scenes/Scene1";
@@ -13,6 +12,7 @@ import { Scene7 } from "./scenes/Scene7";
 import { Scene8 } from "./scenes/Scene8";
 import { Scene9 } from "./scenes/Scene9";
 import { Scene10 } from "./scenes/Scene10";
+import { SCENE_DURATIONS_S } from "./lib/sceneDurations";
 
 const FPS = 30;
 
@@ -28,34 +28,34 @@ export const MainVideo: React.FC = () => {
 
       {/* Secuencia de todas las escenas */}
       <Series>
-        <Series.Sequence durationInFrames={12 * FPS}>
+        <Series.Sequence durationInFrames={SCENE_DURATIONS_S.scene1 * FPS}>
           <Scene1 />
         </Series.Sequence>
-        <Series.Sequence durationInFrames={11 * FPS}>
+        <Series.Sequence durationInFrames={SCENE_DURATIONS_S.scene2 * FPS}>
           <Scene2 />
         </Series.Sequence>
-        <Series.Sequence durationInFrames={8 * FPS}>
+        <Series.Sequence durationInFrames={SCENE_DURATIONS_S.scene3 * FPS}>
           <Scene3 />
         </Series.Sequence>
-        <Series.Sequence durationInFrames={15 * FPS}>
+        <Series.Sequence durationInFrames={SCENE_DURATIONS_S.scene4 * FPS}>
           <Scene4 />
         </Series.Sequence>
-        <Series.Sequence durationInFrames={12 * FPS}>
+        <Series.Sequence durationInFrames={SCENE_DURATIONS_S.scene5 * FPS}>
           <Scene5 />
         </Series.Sequence>
-        <Series.Sequence durationInFrames={10 * FPS}>
+        <Series.Sequence durationInFrames={SCENE_DURATIONS_S.scene6 * FPS}>
           <Scene6 />
         </Series.Sequence>
-        <Series.Sequence durationInFrames={8 * FPS}>
+        <Series.Sequence durationInFrames={SCENE_DURATIONS_S.scene7 * FPS}>
           <Scene7 />
         </Series.Sequence>
-        <Series.Sequence durationInFrames={8 * FPS}>
+        <Series.Sequence durationInFrames={SCENE_DURATIONS_S.scene8 * FPS}>
           <Scene8 />
         </Series.Sequence>
-        <Series.Sequence durationInFrames={7 * FPS}>
+        <Series.Sequence durationInFrames={SCENE_DURATIONS_S.scene9 * FPS}>
           <Scene9 />
         </Series.Sequence>
-        <Series.Sequence durationInFrames={12 * FPS}>
+        <Series.Sequence durationInFrames={SCENE_DURATIONS_S.scene10 * FPS}>
           <Scene10 />
         </Series.Sequence>
       </Series>

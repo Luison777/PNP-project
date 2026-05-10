@@ -1,9 +1,3 @@
-/**
- * Scene 1 - Hook
- * Cuadro 1 (0–6s): computer.svg + maths.svg con subtítulos
- * Cuadro 2 (6–12s): Cuadro 1 sube, entra "P vs NP" desde abajo
- * Total: 12s = 360 frames @ 30fps
- */
 import {
   AbsoluteFill,
   Img,
@@ -13,18 +7,17 @@ import {
   useVideoConfig,
   staticFile,
 } from "remotion";
+import { Div, Span } from "../lib/ui/containers";
+import { SCENE_DURATIONS_S } from "../lib/sceneDurations";
 
-const SCENE_DURATION_S = 12;
-const CUT1_S = 6; // frame 180
+const SCENE_DURATION_S = SCENE_DURATIONS_S.scene1;
+const CUT1_S = 8;
 
-// Shared white background
 const Background: React.FC = () => (
   <AbsoluteFill style={{ backgroundColor: "white" }} />
 );
 
-// Cuadro 1: Íconos de informática (arriba) y matemáticas (abajo, desfasado)
 const Cuadro1: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
-  // Fade out + slide up en la transición al cuadro 2
   const fadeOut = interpolate(
     frame,
     [fps * CUT1_S - fps * 0.5, fps * CUT1_S],
@@ -38,26 +31,6 @@ const Cuadro1: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
     { extrapolateRight: "clamp", extrapolateLeft: "clamp" },
   );
 
-  // Informática: aparece de inmediato (0–0.5s) con slide desde abajo
-  const opacityInfo = interpolate(frame, [0, fps * 0.5], [0, 1], {
-    extrapolateRight: "clamp",
-    extrapolateLeft: "clamp",
-  });
-  const slideInfo = interpolate(frame, [0, fps * 0.5], [60, 0], {
-    extrapolateRight: "clamp",
-    extrapolateLeft: "clamp",
-  });
-
-  // Matemáticas: aparece ~2s después (diálogo: "...y matemáticas")
-  const opacityMath = interpolate(frame, [fps * 2, fps * 2.5], [0, 1], {
-    extrapolateRight: "clamp",
-    extrapolateLeft: "clamp",
-  });
-  const slideMath = interpolate(frame, [fps * 2, fps * 2.5], [60, 0], {
-    extrapolateRight: "clamp",
-    extrapolateLeft: "clamp",
-  });
-
   return (
     <AbsoluteFill
       style={{
@@ -70,74 +43,65 @@ const Cuadro1: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
         gap: 80,
       }}
     >
-      {/* Top: Informática */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 24,
-          opacity: opacityInfo,
-          transform: `translateY(${slideInfo}px)`,
+      <Div
+        frame={frame}
+        className="flex flex-col items-center gap-6"
+        opacity={{ input: [fps * 0.5, fps * 1], output: [0, 1] }}
+        translateY={{
+          input: [fps * 0.5, fps * 1, fps * 1.5, fps * 2.0],
+          output: [60, 0, 0, -150],
         }}
       >
         <Img
           src={staticFile("scene1/computer.svg")}
-          style={{ width: 300, height: 300, objectFit: "contain" }}
+          style={{ width: 350, height: 350, objectFit: "contain" }}
         />
-        <span
-          style={{
-            fontSize: 52,
-            fontFamily: "sans-serif",
-            fontWeight: 700,
-            color: "#222",
-            letterSpacing: 1,
-          }}
+        <Span
+          frame={frame}
+          className="font-sans font-bold text-[#222] text-[60px] tracking-[1px]"
         >
           Informática
-        </span>
-      </div>
-
-      {/* Bottom: Matemáticas (desfasado ~2s) */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 24,
-          opacity: opacityMath,
-          transform: `translateY(${slideMath}px)`,
-        }}
-      >
+        </Span>
         <Img
           src={staticFile("scene1/maths.svg")}
-          style={{ width: 300, height: 300, objectFit: "contain" }}
+          style={{ width: 350, height: 350, objectFit: "contain" }}
         />
-        <span
-          style={{
-            fontSize: 52,
-            fontFamily: "sans-serif",
-            fontWeight: 700,
-            color: "#222",
-            letterSpacing: 1,
-          }}
+        <Span
+          frame={frame}
+          className="font-sans font-bold text-[#222] text-[60px] tracking-[1px]"
         >
           Matemáticas
-        </span>
-      </div>
+        </Span>
+      </Div>
+      <Span
+        frame={frame}
+        className="font-sans font-extrabold  text-6xl uppercase text-green-600"
+        opacity={{ input: [fps * 3, fps * 3.5], output: [0, 1] }}
+        translateY={{
+          input: [fps * 3, fps * 3.5],
+          output: [60, -50],
+        }}
+      >
+        Fáciles de resolver
+      </Span>
+      <Span
+        frame={frame}
+        className="font-sans font-extrabold  text-6xl uppercase text-red-600 text-center"
+        opacity={{ input: [fps * 5, fps * 5.5], output: [0, 1] }}
+        translateY={{
+          input: [fps * 5, fps * 5.5],
+          output: [60, -30],
+        }}
+      >
+        Fáciles de comprobar <br />
+        Pero difíciles de resolver
+      </Span>
     </AbsoluteFill>
   );
 };
 
-// Cuadro 2: Título "P vs NP" entra desde abajo
 const Cuadro2: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
-  // frame is relative to the start of this sequence (frame 180)
-  const enterY = interpolate(frame, [0, fps * 0.6], [400, 0], {
-    extrapolateRight: "clamp",
-    extrapolateLeft: "clamp",
-  });
-
-  const opacity = interpolate(frame, [0, fps * 0.4], [0, 1], {
+  const opacity = interpolate(frame, [fps * 4, fps * 4.5], [0, 1], {
     extrapolateRight: "clamp",
     extrapolateLeft: "clamp",
   });
@@ -148,51 +112,30 @@ const Cuadro2: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        transform: `translateY(${enterY}px)`,
         opacity,
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          gap: 20,
-        }}
-      >
-        <span
-          style={{
-            fontSize: 180,
-            fontFamily: "sans-serif",
-            fontWeight: 900,
-            color: "#1a1a2e",
-            letterSpacing: -4,
-          }}
+      <Div frame={frame} className="flex flex-row items-center gap-5">
+        <Span
+          frame={frame}
+          className="font-sans font-black text-[#1a1a2e] text-[180px] tracking-[-4px]"
         >
           P
-        </span>
-        <span
-          style={{
-            fontSize: 100,
-            fontFamily: "sans-serif",
-            fontWeight: 400,
-            color: "#555",
-          }}
+        </Span>
+        <Span
+          frame={frame}
+          className="font-sans text-[#555] text-[100px]"
+          style={{ fontWeight: 350 }}
         >
           vs
-        </span>
-        <span
-          style={{
-            fontSize: 180,
-            fontFamily: "sans-serif",
-            fontWeight: 900,
-            color: "#e94560",
-            letterSpacing: -4,
-          }}
+        </Span>
+        <Span
+          frame={frame}
+          className="font-sans font-black text-[#e94560] text-[180px] tracking-[-4px]"
         >
           NP
-        </span>
-      </div>
+        </Span>
+      </Div>
     </AbsoluteFill>
   );
 };
@@ -204,11 +147,9 @@ export const Scene1: React.FC = () => {
   return (
     <AbsoluteFill>
       <Background />
-      {/* Cuadro 1: 0–6s */}
       <Sequence durationInFrames={fps * CUT1_S} layout="none">
         <Cuadro1 frame={frame} fps={fps} />
       </Sequence>
-      {/* Cuadro 2: 6–12s */}
       <Sequence
         from={fps * CUT1_S}
         durationInFrames={fps * (SCENE_DURATION_S - CUT1_S)}

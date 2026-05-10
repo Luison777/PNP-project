@@ -1,8 +1,3 @@
-/**
- * Scene 5 - Ejemplos NP
- * Cuadro 8 (0–12s): safe.svg → password.svg → check.svg aparecen secuencialmente
- * Total: 12s = 360 frames @ 30fps
- */
 import {
   AbsoluteFill,
   Img,
@@ -48,7 +43,6 @@ export const Scene5: React.FC = () => {
           paddingRight: 80,
         }}
       >
-        {/* Label NP */}
         <div
           style={{
             opacity: fadeIn(0),
@@ -73,7 +67,6 @@ export const Scene5: React.FC = () => {
           </span>
         </div>
 
-        {/* Icons row */}
         <div
           style={{
             display: "flex",
@@ -82,7 +75,6 @@ export const Scene5: React.FC = () => {
             width: "100%",
           }}
         >
-          {/* safe.svg */}
           <div
             style={{
               display: "flex",
@@ -113,7 +105,6 @@ export const Scene5: React.FC = () => {
             </span>
           </div>
 
-          {/* password.svg */}
           <div
             style={{
               display: "flex",
@@ -144,7 +135,6 @@ export const Scene5: React.FC = () => {
             </span>
           </div>
 
-          {/* check.svg */}
           <div
             style={{
               display: "flex",
@@ -176,7 +166,6 @@ export const Scene5: React.FC = () => {
           </div>
         </div>
 
-        {/* Caption */}
         <div
           style={{
             opacity: fadeIn(7),

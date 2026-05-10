@@ -1,8 +1,3 @@
-/**
- * Scene 6 - Sudoku (Cuadro 9)
- * Tabla 9x9 con fila, columna y bloque 3x3 resaltados
- * Total: 10s = 300 frames @ 30fps
- */
 import {
   AbsoluteFill,
   interpolate,
@@ -23,7 +18,6 @@ const SUDOKU_PARTIAL: number[][] = [
   [0, 0, 0, 0, 8, 0, 0, 7, 9],
 ];
 
-// Highlighted row=4 (index), col=4 (index), box = top-left at row=3,col=3
 const HIGHLIGHT_ROW = 4;
 const HIGHLIGHT_COL = 4;
 const HIGHLIGHT_BOX_ROW_START = 3;
@@ -37,13 +31,11 @@ export const Scene6: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Fade in
   const opacity = interpolate(frame, [0, fps * 0.5], [0, 1], {
     extrapolateRight: "clamp",
     extrapolateLeft: "clamp",
   });
 
-  // Highlights fade in sequentially
   const rowHighlight = interpolate(frame, [fps * 1, fps * 1.5], [0, 1], {
     extrapolateRight: "clamp",
     extrapolateLeft: "clamp",
@@ -95,7 +87,6 @@ export const Scene6: React.FC = () => {
           opacity,
         }}
       >
-        {/* Title */}
         <div style={{ marginBottom: 20 }}>
           <span
             style={{
@@ -109,7 +100,6 @@ export const Scene6: React.FC = () => {
           </span>
         </div>
 
-        {/* Board */}
         <div
           style={{
             display: "grid",
@@ -152,7 +142,6 @@ export const Scene6: React.FC = () => {
           )}
         </div>
 
-        {/* Legend */}
         <div
           style={{
             display: "flex",

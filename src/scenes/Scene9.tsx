@@ -1,8 +1,3 @@
-/**
- * Scene 9 - Pregunta central (Cuadro 12)
- * Título llamativo con la gran pregunta P vs NP
- * Total: 7s = 210 frames @ 30fps
- */
 import {
   AbsoluteFill,
   interpolate,
@@ -30,7 +25,6 @@ export const Scene9: React.FC = () => {
       extrapolateLeft: "clamp",
     });
 
-  // Pulsing "?" effect using sine wave
   const pulse = Math.sin((frame / fps) * Math.PI * 2) * 0.05 + 1;
 
   return (
@@ -47,7 +41,6 @@ export const Scene9: React.FC = () => {
           paddingRight: 80,
         }}
       >
-        {/* "Y aquí aparece la gran pregunta:" */}
         <div
           style={{
             opacity: fadeIn(0),
@@ -67,7 +60,6 @@ export const Scene9: React.FC = () => {
           </span>
         </div>
 
-        {/* Main question line 1 */}
         <div
           style={{
             opacity: fadeIn(1),
@@ -88,7 +80,6 @@ export const Scene9: React.FC = () => {
           </span>
         </div>
 
-        {/* Main question line 2 */}
         <div
           style={{
             opacity: fadeIn(3),
@@ -131,7 +122,6 @@ export const Scene9: React.FC = () => {
           </span>
         </div>
 
-        {/* Big question mark */}
         <div
           style={{
             opacity: fadeIn(4.5),

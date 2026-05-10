@@ -1,8 +1,3 @@
-/**
- * Scene 10 - Cierre (Cuadro 13)
- * P=NP → think.svg con X roja en burbuja → dollar.svg
- * Total: 12s = 360 frames @ 30fps
- */
 import {
   AbsoluteFill,
   Img,
@@ -76,7 +71,6 @@ export const Scene10: React.FC = () => {
     <AbsoluteFill>
       <Background />
 
-      {/* P=NP title */}
       <AbsoluteFill
         style={{
           display: "flex",
@@ -138,7 +132,6 @@ export const Scene10: React.FC = () => {
         </div>
       </AbsoluteFill>
 
-      {/* Think character with X bubble */}
       <AbsoluteFill
         style={{
           display: "flex",
@@ -149,7 +142,6 @@ export const Scene10: React.FC = () => {
           paddingBottom: 80,
         }}
       >
-        {/* Thought bubble with X */}
         <div
           style={{
             position: "relative",
@@ -161,7 +153,6 @@ export const Scene10: React.FC = () => {
             src={staticFile("scene4/thought-bubble.svg")}
             style={{ width: "100%", height: "100%", objectFit: "contain" }}
           />
-          {/* Red X inside bubble */}
           <div
             style={{
               position: "absolute",
@@ -190,7 +181,6 @@ export const Scene10: React.FC = () => {
           </div>
         </div>
 
-        {/* Think character */}
         <Img
           src={staticFile("scene4/think.svg")}
           style={{
@@ -201,7 +191,6 @@ export const Scene10: React.FC = () => {
           }}
         />
 
-        {/* "Nadie lo ha demostrado" text */}
         <div style={{ opacity: xOpacity, marginTop: 20, textAlign: "center" }}>
           <span
             style={{
@@ -216,7 +205,6 @@ export const Scene10: React.FC = () => {
         </div>
       </AbsoluteFill>
 
-      {/* Dollar + million dollars */}
       <AbsoluteFill
         style={{
           display: "flex",

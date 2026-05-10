@@ -1,8 +1,3 @@
-/**
- * Scene 7 - Tablero lleno (Cuadro 10)
- * Sudoku completo, se revisan filas/columnas/bloques con animación
- * Total: 8s = 240 frames @ 30fps
- */
 import {
   AbsoluteFill,
   interpolate,
@@ -30,13 +25,11 @@ export const Scene7: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Board fades in
   const boardOpacity = interpolate(frame, [0, fps * 0.5], [0, 1], {
     extrapolateRight: "clamp",
     extrapolateLeft: "clamp",
   });
 
-  // "check" sweep: row-by-row highlight, one row every ~0.6s
   const sweepRow = interpolate(frame, [fps * 1, fps * (1 + 9 * 0.6)], [0, 9], {
     extrapolateRight: "clamp",
     extrapolateLeft: "clamp",
@@ -44,14 +37,12 @@ export const Scene7: React.FC = () => {
 
   const currentRow = Math.floor(sweepRow);
 
-  // Verified rows turn green
   const isVerified = (r: number) => r < currentRow;
   const isCurrent = (r: number) => r === currentRow;
 
   const cellSize = 96;
   const borderColor = "#222";
 
-  // Checkmark opacity after sweep
   const checkOpacity = interpolate(
     frame,
     [fps * (1 + 9 * 0.6), fps * (1 + 9 * 0.6 + 0.8)],
@@ -85,7 +76,6 @@ export const Scene7: React.FC = () => {
           </span>
         </div>
 
-        {/* Board */}
         <div
           style={{
             display: "grid",
@@ -135,7 +125,6 @@ export const Scene7: React.FC = () => {
           )}
         </div>
 
-        {/* Verified badge */}
         <div
           style={{
             opacity: checkOpacity,
