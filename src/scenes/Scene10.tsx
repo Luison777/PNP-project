@@ -2,6 +2,7 @@ import {
   AbsoluteFill,
   Html5Audio,
   Img,
+  Sequence,
   interpolate,
   useCurrentFrame,
   useVideoConfig,
@@ -70,7 +71,13 @@ export const Scene10: React.FC = () => {
 
   return (
     <AbsoluteFill>
-      <Html5Audio src={staticFile("audio/13.mp3")} />
+      <Html5Audio src={staticFile("audio/13.mp3")} volume={2} />
+      <Sequence from={fps * 5.5}>
+        <Html5Audio src={staticFile("audio/error.mp3")} volume={0.09} />
+      </Sequence>
+      <Sequence from={fps * 9}>
+        <Html5Audio src={staticFile("audio/caching.mp3")} volume={0.09} />
+      </Sequence>
       <Background />
 
       <AbsoluteFill
@@ -136,19 +143,17 @@ export const Scene10: React.FC = () => {
 
       <AbsoluteFill
         style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
           opacity: thinkOpacity * thinkFadeOut,
-          paddingBottom: 80,
         }}
+        className="relative flex justify-center px-30"
       >
         <div
           style={{
-            position: "relative",
+            position: "absolute",
+            right: "20%",
+            top: "15%",
             width: 500,
-            height: 380,
+            height: 500,
           }}
         >
           <Img
@@ -158,8 +163,8 @@ export const Scene10: React.FC = () => {
           <div
             style={{
               position: "absolute",
-              top: "15%",
-              left: "50%",
+              top: "20%",
+              left: "55%",
               transform: `translate(-50%, 0) scale(${xScale})`,
               opacity: xOpacity,
               display: "flex",
@@ -186,17 +191,24 @@ export const Scene10: React.FC = () => {
         <Img
           src={staticFile("scene4/think.svg")}
           style={{
-            width: 300,
-            height: 300,
+            width: 340,
+            height: 340,
             objectFit: "contain",
             marginTop: -40,
           }}
         />
 
-        <div style={{ opacity: xOpacity, marginTop: 20, textAlign: "center" }}>
+        <div
+          style={{
+            opacity: xOpacity,
+            position: "absolute",
+            bottom: "25%",
+            textAlign: "center",
+          }}
+        >
           <span
             style={{
-              fontSize: 48,
+              fontSize: 72,
               fontFamily: "sans-serif",
               fontWeight: 700,
               color: "#333",
@@ -219,7 +231,8 @@ export const Scene10: React.FC = () => {
       >
         <Img
           src={staticFile("scene10/dollar.svg")}
-          style={{ width: 400, height: 400, objectFit: "contain" }}
+          style={{ width: 400, height: 400 }}
+          className="ml-20"
         />
         <span
           style={{
@@ -228,18 +241,19 @@ export const Scene10: React.FC = () => {
             fontWeight: 900,
             color: "#27ae60",
             textAlign: "center",
+            marginTop: 70,
           }}
         >
           $1,000,000
         </span>
         <span
           style={{
-            fontSize: 52,
+            fontSize: 65,
             fontFamily: "sans-serif",
             fontWeight: 500,
             color: "#555",
             textAlign: "center",
-            marginTop: 10,
+            marginTop: 30,
           }}
         >
           Literalmente.

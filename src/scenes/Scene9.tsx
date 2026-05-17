@@ -53,7 +53,7 @@ export const Scene9: React.FC = () => {
         >
           <span
             style={{
-              fontSize: 50,
+              fontSize: 55,
               fontFamily: "sans-serif",
               fontWeight: 500,
               color: "#555",
@@ -65,14 +65,14 @@ export const Scene9: React.FC = () => {
 
         <div
           style={{
-            opacity: fadeIn(1),
-            transform: `translateY(${slideUp(1)}px)`,
+            opacity: fadeIn(2.5),
+            transform: `translateY(${slideUp(2.5)}px)`,
             textAlign: "center",
           }}
         >
           <span
             style={{
-              fontSize: 60,
+              fontSize: 65,
               fontFamily: "sans-serif",
               fontWeight: 700,
               color: "#1a1a2e",
@@ -85,8 +85,8 @@ export const Scene9: React.FC = () => {
 
         <div
           style={{
-            opacity: fadeIn(3),
-            transform: `translateY(${slideUp(3)}px)`,
+            opacity: fadeIn(6),
+            transform: `translateY(${slideUp(6)}px)`,
             textAlign: "center",
             display: "flex",
             flexDirection: "row",
@@ -102,14 +102,14 @@ export const Scene9: React.FC = () => {
               color: "#e94560",
             }}
           >
-            ¿también puede
+            ¿También puede
           </span>
         </div>
 
         <div
           style={{
-            opacity: fadeIn(3),
-            transform: `translateY(${slideUp(3)}px)`,
+            opacity: fadeIn(6),
+            transform: `translateY(${slideUp(6)}px)`,
             textAlign: "center",
           }}
         >
@@ -127,7 +127,7 @@ export const Scene9: React.FC = () => {
 
         <div
           style={{
-            opacity: fadeIn(4.5),
+            opacity: fadeIn(6),
             transform: `scale(${pulse})`,
           }}
         >

@@ -6,6 +6,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
   staticFile,
+  Sequence,
 } from "remotion";
 
 const GRID_START_S = 0.5;
@@ -164,6 +165,9 @@ export const Scene8: React.FC = () => {
           ¡Explosión de posibilidades!
         </span>
       </AbsoluteFill>
+      <Sequence from={fps * 7} durationInFrames={fps * 8}>
+        <Html5Audio src={staticFile("audio/explosion.mp3")} volume={0.01} />
+      </Sequence>
     </AbsoluteFill>
   );
 };

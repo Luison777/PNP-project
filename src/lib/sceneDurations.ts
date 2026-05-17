@@ -8,8 +8,8 @@ export const SCENE_DURATIONS_S = {
   scene6: 15,
   scene7: 11,
   scene8: 8,
-  scene9: 8,
-  scene10: 11,
+  scene9: 9,
+  scene10: 13,
 } as const;
 
 export const TOTAL_DURATION_S =
