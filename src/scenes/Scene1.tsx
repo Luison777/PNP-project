@@ -59,7 +59,7 @@ const Cuadro1: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
         />
         <Span
           frame={frame}
-          className="font-sans font-bold text-[#222] text-[60px] tracking-[1px]"
+          className="font-sans font-bold text-[#222] text-7xl tracking-[1px]"
         >
           Informática
         </Span>

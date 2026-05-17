@@ -11,7 +11,7 @@ import {
 import { Div, Span } from "../lib/ui/containers";
 import { SCENE_DURATIONS_S } from "../lib/sceneDurations";
 
-const CUT1_S = 3;
+const CUT1_S = 4;
 
 const SCENE_DURATION_S = SCENE_DURATIONS_S.scene2;
 
@@ -20,7 +20,7 @@ const Background: React.FC = () => (
 );
 
 const Cuadro3: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
-  const scale = interpolate(frame, [0, fps * CUT1_S], [1, 15], {
+  const scale = interpolate(frame, [fps * 2, fps * CUT1_S], [1, 15], {
     extrapolateRight: "clamp",
     extrapolateLeft: "clamp",
   });
@@ -40,13 +40,13 @@ const Cuadro3: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
         justifyContent: "center",
         opacity,
         transform: `scale(${scale})`,
-        transformOrigin: "30% 50%",
+        transformOrigin: "28% 50%",
       }}
     >
       <Div frame={frame} className="flex flex-row items-center gap-5">
         <Span
           frame={frame}
-          className="font-sans font-black text-[#1a1a2e] text-[180px]"
+          className="font-sans font-black text-[#1a1a2e] text-[220px]"
         >
           P
         </Span>
@@ -58,7 +58,7 @@ const Cuadro3: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
         </Span>
         <Span
           frame={frame}
-          className="font-sans font-black text-[#e94560] text-[180px]"
+          className="font-sans font-black text-[#e94560] text-[220px]"
         >
           NP
         </Span>
@@ -131,7 +131,7 @@ const Cuadro4: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
       <Div
         frame={frame}
         className="flex flex-col items-center gap-4 pt-20"
-        opacity={{ input: [fps * 2, fps * 2.5], output: [0, 1] }}
+        opacity={{ input: [fps * 4, fps * 4.5], output: [0, 1] }}
       >
         <Img
           src={staticFile("scene2/arrow-down.svg")}
@@ -142,12 +142,18 @@ const Cuadro4: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
       <Div
         frame={frame}
         className="flex flex-col items-center gap-4 pt-30"
-        opacity={{ input: [fps * 3, fps * 3.5], output: [0, 1] }}
+        opacity={{ input: [fps * 5, fps * 5.5], output: [0, 1] }}
       >
         <Img
           src={staticFile("scene5/check.svg")}
           style={{ width: 400, height: 400, objectFit: "contain" }}
         />
+        <Span
+          frame={frame}
+          className="text-green-500 text-7xl font-sans italic font-bold underline"
+        >
+          Eficiente
+        </Span>
       </Div>
     </AbsoluteFill>
   );
@@ -169,6 +175,12 @@ export const Scene2: React.FC = () => {
         durationInFrames={fps * (SCENE_DURATION_S - CUT1_S)}
       >
         <Html5Audio src={staticFile("audio/4.mp3")} />
+        <Sequence from={fps * 1} durationInFrames={fps * 4}>
+          <Html5Audio src={staticFile("audio/chrono.mp3")} volume={0.1} />
+        </Sequence>
+        <Sequence from={fps * 5} durationInFrames={fps * 2}>
+          <Html5Audio src={staticFile("audio/bell.mp3")} volume={0.1} />
+        </Sequence>
         <Cuadro4 frame={frame - fps * CUT1_S} fps={fps} />
       </Sequence>
     </AbsoluteFill>

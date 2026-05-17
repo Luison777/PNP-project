@@ -68,9 +68,10 @@ export const Scene5: React.FC = () => {
           frame={frame}
           style={{
             display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-around",
+            flexDirection: "column",
+            alignItems: "center",
             width: "100%",
+            gap: 40,
           }}
         >
           <Div
@@ -105,7 +106,7 @@ export const Scene5: React.FC = () => {
             <Span
               frame={frame}
               style={{
-                fontSize: 38,
+                fontSize: 72,
                 fontFamily: "sans-serif",
                 fontWeight: 600,
                 color: "#333",
@@ -147,7 +148,7 @@ export const Scene5: React.FC = () => {
             <Span
               frame={frame}
               style={{
-                fontSize: 38,
+                fontSize: 72,
                 fontFamily: "sans-serif",
                 fontWeight: 600,
                 color: "#333",
@@ -189,7 +190,7 @@ export const Scene5: React.FC = () => {
             <Span
               frame={frame}
               style={{
-                fontSize: 38,
+                fontSize: 72,
                 fontFamily: "sans-serif",
                 fontWeight: 600,
                 color: "#333",
@@ -203,7 +204,7 @@ export const Scene5: React.FC = () => {
         <Div
           frame={frame}
           opacity={{
-            input: [fps * 7, fps * 7.6],
+            input: [fps * 11, fps * 12],
             output: [0, 1],
             extrapolateRight: "clamp",
             extrapolateLeft: "clamp",
@@ -215,12 +216,12 @@ export const Scene5: React.FC = () => {
           <Span
             frame={frame}
             style={{
-              fontSize: 44,
+              fontSize: 72,
               fontFamily: "sans-serif",
-              fontWeight: 500,
-              color: "#444",
+              fontWeight: 600,
               fontStyle: "italic",
             }}
+            className="text-green-500 underline"
           >
             Difícil de encontrar, fácil de verificar
           </Span>

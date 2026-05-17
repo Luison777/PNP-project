@@ -11,7 +11,7 @@ import {
 
 import { Div, Span } from "../lib/ui/containers";
 
-const CUT1_S = 3;
+const CUT1_S = 4;
 import { SCENE_DURATIONS_S } from "../lib/sceneDurations";
 
 const SCENE_DURATION_S = SCENE_DURATIONS_S.scene4;
@@ -21,7 +21,7 @@ const Background: React.FC = () => (
 );
 
 const Cuadro6: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
-  const scale = interpolate(frame, [0, fps * CUT1_S], [1, 15], {
+  const scale = interpolate(frame, [fps * 2, fps * CUT1_S], [1, 15], {
     extrapolateRight: "clamp",
     extrapolateLeft: "clamp",
   });
@@ -56,7 +56,7 @@ const Cuadro6: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
         <Span
           frame={frame}
           style={{
-            fontSize: 180,
+            fontSize: 220,
             fontFamily: "sans-serif",
             fontWeight: 900,
             color: "#1a1a2e",
@@ -78,7 +78,7 @@ const Cuadro6: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
         <Span
           frame={frame}
           style={{
-            fontSize: 180,
+            fontSize: 220,
             fontFamily: "sans-serif",
             fontWeight: 900,
             color: "#e94560",
@@ -148,6 +148,25 @@ const Cuadro7: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
           style={{ width: "100%", height: "100%", objectFit: "contain" }}
         />
       </Div>
+      <Div
+        frame={frame}
+        opacity={{
+          input: [fps * 1, fps * 2, fps * 4, fps * 4.5],
+          output: [0, 1, 1, 0],
+          extrapolateRight: "clamp",
+          extrapolateLeft: "clamp",
+        }}
+        style={{
+          width: 160,
+          height: 160,
+        }}
+        className="absolute top-[20%] right-[32%]"
+      >
+        <Img
+          src={staticFile("scene1/question.svg")}
+          style={{ width: "100%", height: "100%", objectFit: "contain" }}
+        />
+      </Div>
       <Img
         src={staticFile("scene4/think.svg")}
         style={{
@@ -157,6 +176,13 @@ const Cuadro7: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
           marginTop: -40,
         }}
       />
+      <Span
+        frame={frame}
+        className="text-green-500 text-7xl font-sans font-bold text-center pt-32"
+        opacity={{ input: [fps * 7, fps * 8], output: [0, 1] }}
+      >
+        Comprobar es rápido
+      </Span>
     </AbsoluteFill>
   );
 };

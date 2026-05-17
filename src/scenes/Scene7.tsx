@@ -19,6 +19,22 @@ const SUDOKU_FULL: number[][] = [
   [3, 4, 5, 2, 8, 6, 1, 7, 9],
 ];
 
+// ── Timing (segundos) ── ajusta estos valores para sincronizar con el diálogo
+const BOARD_FADE_S = 0.5;
+
+const ROWS_START_S = 1;
+const ROWS_DURATION_S = 2.5; // duración del barrido de filas
+
+const COLS_START_S = 4;
+const COLS_DURATION_S = 2.5; // duración del barrido de columnas
+
+const BLOCKS_START_S = 7;
+const BLOCKS_DURATION_S = 2.5; // duración del barrido de bloques 3×3
+
+const CHECK_START_S = 10;
+const CHECK_FADE_S = 0.6;
+// ────────────────────────────────────────────────────────────────────────────
+
 const Background: React.FC = () => (
   <AbsoluteFill style={{ backgroundColor: "white" }} />
 );
@@ -27,30 +43,98 @@ export const Scene7: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const boardOpacity = interpolate(frame, [0, fps * 0.5], [0, 1], {
+  const boardOpacity = interpolate(frame, [0, fps * BOARD_FADE_S], [0, 1], {
     extrapolateRight: "clamp",
     extrapolateLeft: "clamp",
   });
 
-  const sweepRow = interpolate(frame, [fps * 1, fps * (1 + 9 * 0.6)], [0, 9], {
-    extrapolateRight: "clamp",
-    extrapolateLeft: "clamp",
-  });
+  // ── Progreso de cada fase (0 → 9)
+  const sweepRow = interpolate(
+    frame,
+    [fps * ROWS_START_S, fps * (ROWS_START_S + ROWS_DURATION_S)],
+    [0, 9],
+    { extrapolateRight: "clamp", extrapolateLeft: "clamp" },
+  );
+  const sweepCol = interpolate(
+    frame,
+    [fps * COLS_START_S, fps * (COLS_START_S + COLS_DURATION_S)],
+    [0, 9],
+    { extrapolateRight: "clamp", extrapolateLeft: "clamp" },
+  );
+  const sweepBlock = interpolate(
+    frame,
+    [fps * BLOCKS_START_S, fps * (BLOCKS_START_S + BLOCKS_DURATION_S)],
+    [0, 9],
+    { extrapolateRight: "clamp", extrapolateLeft: "clamp" },
+  );
 
   const currentRow = Math.floor(sweepRow);
+  const currentCol = Math.floor(sweepCol);
+  const currentBlock = Math.floor(sweepBlock);
 
-  const isVerified = (r: number) => r < currentRow;
-  const isCurrent = (r: number) => r === currentRow;
+  const rowPhase = frame >= fps * ROWS_START_S && frame < fps * COLS_START_S;
+  const colPhase = frame >= fps * COLS_START_S && frame < fps * BLOCKS_START_S;
+  const blockPhase = frame >= fps * BLOCKS_START_S;
 
-  const cellSize = 96;
-  const borderColor = "#222";
+  function getCellBg(r: number, c: number): string {
+    const blockIdx = Math.floor(r / 3) * 3 + Math.floor(c / 3);
+    if (rowPhase) {
+      if (r < currentRow) return "rgba(80, 200, 120, 0.3)";
+      if (r === currentRow) return "rgba(255, 200, 50, 0.5)";
+    } else if (colPhase) {
+      if (c < currentCol) return "rgba(100, 149, 237, 0.35)";
+      if (c === currentCol) return "rgba(255, 200, 50, 0.5)";
+    } else if (blockPhase) {
+      if (blockIdx < currentBlock) return "rgba(200, 120, 220, 0.3)";
+      if (blockIdx === currentBlock) return "rgba(255, 200, 50, 0.5)";
+    }
+    return "transparent";
+  }
+
+  // ── Opacidad de los labels de fase
+  const rowLabelOpacity = interpolate(
+    frame,
+    [
+      fps * ROWS_START_S,
+      fps * (ROWS_START_S + 0.4),
+      fps * (COLS_START_S - 0.3),
+      fps * COLS_START_S,
+    ],
+    [0, 1, 1, 0],
+    { extrapolateRight: "clamp", extrapolateLeft: "clamp" },
+  );
+  const colLabelOpacity = interpolate(
+    frame,
+    [
+      fps * COLS_START_S,
+      fps * (COLS_START_S + 0.4),
+      fps * (BLOCKS_START_S - 0.3),
+      fps * BLOCKS_START_S,
+    ],
+    [0, 1, 1, 0],
+    { extrapolateRight: "clamp", extrapolateLeft: "clamp" },
+  );
+  const blockLabelOpacity = interpolate(
+    frame,
+    [
+      fps * BLOCKS_START_S,
+      fps * (BLOCKS_START_S + 0.4),
+      fps * (CHECK_START_S - 0.3),
+      fps * CHECK_START_S,
+    ],
+    [0, 1, 1, 0],
+    { extrapolateRight: "clamp", extrapolateLeft: "clamp" },
+  );
 
   const checkOpacity = interpolate(
     frame,
-    [fps * (1 + 9 * 0.6), fps * (1 + 9 * 0.6 + 0.8)],
+    [fps * CHECK_START_S, fps * (CHECK_START_S + CHECK_FADE_S)],
     [0, 1],
     { extrapolateRight: "clamp", extrapolateLeft: "clamp" },
   );
+
+  const cellSize = 96;
+  const borderColor = "#222";
 
   return (
     <AbsoluteFill>
@@ -62,14 +146,15 @@ export const Scene7: React.FC = () => {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          gap: 30,
+          gap: 24,
           opacity: boardOpacity,
         }}
       >
-        <div style={{ marginBottom: 10 }}>
+        {/* Título */}
+        <div>
           <span
             style={{
-              fontSize: 56,
+              fontSize: 72,
               fontFamily: "sans-serif",
               fontWeight: 800,
               color: "#1a1a2e",
@@ -79,6 +164,60 @@ export const Scene7: React.FC = () => {
           </span>
         </div>
 
+        {/* Label de fase activa */}
+        <div
+          style={{
+            height: 52,
+            position: "relative",
+            width: "100%",
+            textAlign: "center",
+          }}
+        >
+          <span
+            style={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              opacity: rowLabelOpacity,
+              fontSize: 48,
+              fontFamily: "sans-serif",
+              fontWeight: 700,
+              color: "#50c878",
+            }}
+          >
+            ▶ Filas
+          </span>
+          <span
+            style={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              opacity: colLabelOpacity,
+              fontSize: 48,
+              fontFamily: "sans-serif",
+              fontWeight: 700,
+              color: "#6495ed",
+            }}
+          >
+            ▶ Columnas
+          </span>
+          <span
+            style={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              opacity: blockLabelOpacity,
+              fontSize: 48,
+              fontFamily: "sans-serif",
+              fontWeight: 700,
+              color: "#c878dc",
+            }}
+          >
+            ▶ Bloques 3×3
+          </span>
+        </div>
+
+        {/* Tablero */}
         <div
           style={{
             display: "grid",
@@ -91,9 +230,6 @@ export const Scene7: React.FC = () => {
             row.map((val, c) => {
               const isThickRight = c === 2 || c === 5;
               const isThickBottom = r === 2 || r === 5;
-              const verified = isVerified(r);
-              const current = isCurrent(r);
-
               return (
                 <div
                   key={`${r}-${c}`}
@@ -109,16 +245,11 @@ export const Scene7: React.FC = () => {
                     borderBottom: isThickBottom
                       ? `3px solid ${borderColor}`
                       : `1px solid #aaa`,
-                    backgroundColor: verified
-                      ? "rgba(80, 200, 120, 0.25)"
-                      : current
-                        ? "rgba(255, 200, 50, 0.5)"
-                        : "transparent",
+                    backgroundColor: getCellBg(r, c),
                     fontSize: 40,
                     fontFamily: "monospace",
                     fontWeight: 700,
                     color: "#1a1a2e",
-                    transition: "background-color 0.1s",
                   }}
                 >
                   {val}
@@ -128,13 +259,14 @@ export const Scene7: React.FC = () => {
           )}
         </div>
 
+        {/* Resultado final */}
         <div
           style={{
             opacity: checkOpacity,
             display: "flex",
             alignItems: "center",
             gap: 20,
-            marginTop: 20,
+            marginTop: 10,
           }}
         >
           <div
@@ -155,7 +287,7 @@ export const Scene7: React.FC = () => {
           </div>
           <span
             style={{
-              fontSize: 48,
+              fontSize: 72,
               fontFamily: "sans-serif",
               fontWeight: 700,
               color: "#50c878",

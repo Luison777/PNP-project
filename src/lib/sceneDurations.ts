@@ -1,9 +1,9 @@
 /** Duración de cada escena en segundos */
 export const SCENE_DURATIONS_S = {
   scene1: 14,
-  scene2: 11,
-  scene3: 8,
-  scene4: 13,
+  scene2: 13,
+  scene3: 9,
+  scene4: 15,
   scene5: 14,
   scene6: 15,
   scene7: 11,

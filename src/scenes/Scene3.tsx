@@ -58,9 +58,11 @@ export const Scene3: React.FC = () => {
           frame={frame}
           style={{
             display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-around",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
             width: "100%",
+            gap: 40,
           }}
         >
           <Div
@@ -89,7 +91,7 @@ export const Scene3: React.FC = () => {
             <Span
               frame={frame}
               style={{
-                fontSize: 50,
+                fontSize: 72,
                 fontFamily: "sans-serif",
                 fontWeight: 600,
                 color: "#333",
@@ -125,7 +127,7 @@ export const Scene3: React.FC = () => {
             <Span
               frame={frame}
               style={{
-                fontSize: 50,
+                fontSize: 72,
                 fontFamily: "sans-serif",
                 fontWeight: 600,
                 color: "#333",
@@ -158,7 +160,7 @@ export const Scene3: React.FC = () => {
           <Span
             frame={frame}
             style={{
-              fontSize: 50,
+              fontSize: 72,
               fontFamily: "sans-serif",
               fontWeight: 600,
               color: "#333",

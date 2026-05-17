@@ -38,15 +38,15 @@ export const Scene6: React.FC = () => {
     extrapolateLeft: "clamp",
   });
 
-  const rowHighlight = interpolate(frame, [fps * 1, fps * 1.5], [0, 1], {
+  const rowHighlight = interpolate(frame, [fps * 7.5, fps * 8], [0, 1], {
     extrapolateRight: "clamp",
     extrapolateLeft: "clamp",
   });
-  const colHighlight = interpolate(frame, [fps * 2.5, fps * 3], [0, 1], {
+  const colHighlight = interpolate(frame, [fps * 8.5, fps * 9], [0, 1], {
     extrapolateRight: "clamp",
     extrapolateLeft: "clamp",
   });
-  const boxHighlight = interpolate(frame, [fps * 4, fps * 4.5], [0, 1], {
+  const boxHighlight = interpolate(frame, [fps * 9.5, fps * 10], [0, 1], {
     extrapolateRight: "clamp",
     extrapolateLeft: "clamp",
   });
@@ -93,7 +93,7 @@ export const Scene6: React.FC = () => {
         <div style={{ marginBottom: 20 }}>
           <span
             style={{
-              fontSize: 64,
+              fontSize: 72,
               fontFamily: "sans-serif",
               fontWeight: 800,
               color: "#1a1a2e",
@@ -174,7 +174,7 @@ export const Scene6: React.FC = () => {
               />
               <span
                 style={{
-                  fontSize: 36,
+                  fontSize: 50,
                   fontFamily: "sans-serif",
                   color: "#333",
                 }}
