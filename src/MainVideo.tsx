@@ -22,7 +22,7 @@ export const MainVideo: React.FC = () => {
       {/* Audio de fondo: ajusta el src al nombre de tu archivo */}
       <Html5Audio
         src={staticFile("audio/backmusic.mp3")}
-        volume={0.05} // 0.0 = silencio, 1.0 = volumen completo
+        volume={0.009} // 0.0 = silencio, 1.0 = volumen completo
         loop
       />
 

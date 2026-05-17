@@ -1,5 +1,6 @@
 import {
   AbsoluteFill,
+  Html5Audio,
   Img,
   Sequence,
   interpolate,
@@ -10,7 +11,7 @@ import {
 
 import { Div, Span } from "../lib/ui/containers";
 
-const CUT1_S = 1;
+const CUT1_S = 3;
 import { SCENE_DURATIONS_S } from "../lib/sceneDurations";
 
 const SCENE_DURATION_S = SCENE_DURATIONS_S.scene4;
@@ -168,12 +169,14 @@ export const Scene4: React.FC = () => {
     <AbsoluteFill>
       <Background />
       <Sequence durationInFrames={fps * CUT1_S}>
+        <Html5Audio src={staticFile("audio/6.mp3")} />
         <Cuadro6 frame={frame} fps={fps} />
       </Sequence>
       <Sequence
         from={fps * CUT1_S}
         durationInFrames={fps * (SCENE_DURATION_S - CUT1_S)}
       >
+        <Html5Audio src={staticFile("audio/7.mp3")} />
         <Cuadro7 frame={frame - fps * CUT1_S} fps={fps} />
       </Sequence>
     </AbsoluteFill>

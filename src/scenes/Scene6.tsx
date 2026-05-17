@@ -1,8 +1,10 @@
 import {
   AbsoluteFill,
+  Html5Audio,
   interpolate,
   useCurrentFrame,
   useVideoConfig,
+  staticFile,
 } from "remotion";
 
 // Partial Sudoku board (0 = empty)
@@ -76,6 +78,7 @@ export const Scene6: React.FC = () => {
 
   return (
     <AbsoluteFill>
+      <Html5Audio src={staticFile("audio/9.mp3")} />
       <Background />
       <AbsoluteFill
         style={{

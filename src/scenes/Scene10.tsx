@@ -1,5 +1,6 @@
 import {
   AbsoluteFill,
+  Html5Audio,
   Img,
   interpolate,
   useCurrentFrame,
@@ -69,6 +70,7 @@ export const Scene10: React.FC = () => {
 
   return (
     <AbsoluteFill>
+      <Html5Audio src={staticFile("audio/13.mp3")} />
       <Background />
 
       <AbsoluteFill

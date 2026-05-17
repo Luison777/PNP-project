@@ -1,5 +1,6 @@
 import {
   AbsoluteFill,
+  Html5Audio,
   Img,
   Sequence,
   interpolate,
@@ -62,16 +63,6 @@ const Cuadro1: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
         >
           Informática
         </Span>
-        <Img
-          src={staticFile("scene1/maths.svg")}
-          style={{ width: 350, height: 350, objectFit: "contain" }}
-        />
-        <Span
-          frame={frame}
-          className="font-sans font-bold text-[#222] text-[60px] tracking-[1px]"
-        >
-          Matemáticas
-        </Span>
       </Div>
       <Span
         frame={frame}
@@ -101,24 +92,31 @@ const Cuadro1: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
 };
 
 const Cuadro2: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
-  const opacity = interpolate(frame, [fps * 4, fps * 4.5], [0, 1], {
-    extrapolateRight: "clamp",
-    extrapolateLeft: "clamp",
-  });
-
   return (
     <AbsoluteFill
       style={{
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        opacity,
       }}
     >
-      <Div frame={frame} className="flex flex-row items-center gap-5">
+      <Div
+        frame={frame}
+        opacity={{ input: [fps * 0.5, fps * 1], output: [0, 1] }}
+      >
+        <Img
+          src={staticFile("scene1/question.svg")}
+          style={{ width: 350, height: 350, objectFit: "contain" }}
+        />
+      </Div>
+      <Div
+        frame={frame}
+        className="flex flex-row items-center gap-5"
+        opacity={{ input: [fps * 4, fps * 4.5], output: [0, 1] }}
+      >
         <Span
           frame={frame}
-          className="font-sans font-black text-[#1a1a2e] text-[180px] tracking-[-4px]"
+          className="font-sans font-black text-[#1a1a2e] text-[220px] tracking-[-4px]"
         >
           P
         </Span>
@@ -131,7 +129,7 @@ const Cuadro2: React.FC<{ frame: number; fps: number }> = ({ frame, fps }) => {
         </Span>
         <Span
           frame={frame}
-          className="font-sans font-black text-[#e94560] text-[180px] tracking-[-4px]"
+          className="font-sans font-black text-[#e94560] text-[220px] tracking-[-4px]"
         >
           NP
         </Span>
@@ -148,12 +146,14 @@ export const Scene1: React.FC = () => {
     <AbsoluteFill>
       <Background />
       <Sequence durationInFrames={fps * CUT1_S} layout="none">
+        <Html5Audio src={staticFile("audio/1.mp3")} volume={0.4} />
         <Cuadro1 frame={frame} fps={fps} />
       </Sequence>
       <Sequence
         from={fps * CUT1_S}
         durationInFrames={fps * (SCENE_DURATION_S - CUT1_S)}
       >
+        <Html5Audio src={staticFile("audio/2.mp3")} />
         <Cuadro2 frame={frame - fps * CUT1_S} fps={fps} />
       </Sequence>
     </AbsoluteFill>

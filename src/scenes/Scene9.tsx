@@ -1,8 +1,10 @@
 import {
   AbsoluteFill,
+  Html5Audio,
   interpolate,
   useCurrentFrame,
   useVideoConfig,
+  staticFile,
 } from "remotion";
 
 const Background: React.FC = () => (
@@ -29,6 +31,7 @@ export const Scene9: React.FC = () => {
 
   return (
     <AbsoluteFill>
+      <Html5Audio src={staticFile("audio/12.mp3")} />
       <Background />
       <AbsoluteFill
         style={{

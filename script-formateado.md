@@ -19,7 +19,7 @@
 ### Cuadro 1 (6s)
 
 - **Visual:** `computer.svg` (izquierda) y `maths.svg` (derecha). Subtítulos: "Informática" y "Matemáticas".
-- **Diálogo:** En informática y matemáticas, hay problemas fáciles de resolver… y problemas que parecen fáciles de comprobar, pero muy difíciles de resolver.
+- **Diálogo:** En el mundo de la informatica, hay problemas fáciles de resolver… y problemas que son fáciles de comprobar, pero muy difíciles de resolver.
 
 ### Cuadro 2 (6s)
 
@@ -40,7 +40,7 @@
 ### Cuadro 4 (8s)
 
 - **Visual:** Aparecen `computer.svg` (scene1), `gear.svg` (animación de giro) y `clock.svg`. Fade out al final.
-- **Diálogo:** El conjunto P contiene problemas que una computadora puede resolver rápidamente. Es decir, encontrar la solución es eficiente.
+- **Diálogo:** El conjunto P representa los problemas que una computadora puede resolver rápidamente. Es decir, encontrar la solución es eficiente.
 
 ---
 
@@ -122,7 +122,7 @@
 ### Cuadro 12 (7s)
 
 - **Visual:** Título llamativo con la pregunta del diálogo.
-- **Diálogo:** Y aquí aparece la gran pregunta: si un problema puede verificarse rápidamente… ¿también puede resolverse rápidamente?
+- **Diálogo:** Y es aquí donde aparece la gran pregunta: si un problema puede verificarse rápidamente… ¿también puede resolverse rápidamente?
 
 ---
 

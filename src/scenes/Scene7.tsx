@@ -1,8 +1,10 @@
 import {
   AbsoluteFill,
+  Html5Audio,
   interpolate,
   useCurrentFrame,
   useVideoConfig,
+  staticFile,
 } from "remotion";
 
 const SUDOKU_FULL: number[][] = [
@@ -52,6 +54,7 @@ export const Scene7: React.FC = () => {
 
   return (
     <AbsoluteFill>
+      <Html5Audio src={staticFile("audio/10.mp3")} />
       <Background />
       <AbsoluteFill
         style={{

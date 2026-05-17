@@ -1,15 +1,15 @@
 /** Duración de cada escena en segundos */
 export const SCENE_DURATIONS_S = {
-  scene1: 16,
+  scene1: 14,
   scene2: 11,
   scene3: 8,
-  scene4: 15,
-  scene5: 12,
-  scene6: 10,
-  scene7: 8,
+  scene4: 13,
+  scene5: 14,
+  scene6: 15,
+  scene7: 11,
   scene8: 8,
-  scene9: 7,
-  scene10: 12,
+  scene9: 8,
+  scene10: 11,
 } as const;
 
 export const TOTAL_DURATION_S =
